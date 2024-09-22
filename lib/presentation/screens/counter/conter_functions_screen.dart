@@ -43,43 +43,50 @@ class _CounterFunctionsScreenState extends State<CounterFunctionsScreen> {
         floatingActionButton: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            FloatingActionButton(
-            shape : const StadiumBorder(),
-          onPressed: (){
-            setState(() {
-              clickCounter =0; 
-            });
-          }, 
-          child: const Icon(Icons.refresh_outlined),),
-          const SizedBox( height: 10,),
-            FloatingActionButton(
-            shape : const StadiumBorder(),
-          onPressed: (){
-            clickCounter ++;
-            if(clickCounter==1){
-              clicks="Click";
-            }else{
-              clicks="Clicks";
-            }
+            CustomButton(
+              icon: Icons.plus_one,
+              onPressed: (){
+            clickCounter++;
             setState(() {});
-          }, 
-          child: const Icon(Icons.plus_one),),
+              },),
           const SizedBox( height: 10,),
-          FloatingActionButton(
-            shape : const StadiumBorder(),
-          onPressed: (){
-            if(clickCounter==0) return;
+            CustomButton(icon: Icons.exposure_minus_1_outlined,
+            onPressed: (){
+              if(clickCounter==0) return;
             clickCounter --;
-            if(clickCounter==1){
-              clicks="Click";
-            }else{
-              clicks="Clicks";
-            }
             setState(() {});
-          }, 
-          child: const Icon(Icons.exposure_minus_1_outlined),),
+            },),
+          const SizedBox( height: 10,
+          ),
+          CustomButton( icon: Icons.refresh_outlined,
+          onPressed: (){
+            clickCounter=0;
+            setState(() {
+            clickCounter=0;
+            });
+          },),
           ],
         )
         );
+  }
+}
+
+class CustomButton extends StatelessWidget {
+  final IconData icon;
+  final VoidCallback? onPressed;
+  
+
+  const CustomButton({
+    super.key, 
+    required this.icon,
+    this.onPressed
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      shape : const StadiumBorder(),
+    onPressed: onPressed,
+    child:  Icon(icon),);
   }
 }
